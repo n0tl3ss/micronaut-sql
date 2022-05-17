@@ -22,7 +22,6 @@ import io.micronaut.context.annotation.Prototype;
 import org.hibernate.boot.registry.StandardServiceInitiator;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.bytecode.spi.BytecodeProvider;
-import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 
 import java.util.Map;
