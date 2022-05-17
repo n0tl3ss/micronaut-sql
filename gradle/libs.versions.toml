@@ -3,7 +3,7 @@ managed-vertx = "4.3.0"
 managed-jooq = "3.14.12"
 managed-hibernate = "5.6.8.Final"
 managed-hibernate-reactive = "1.1.5.Beta2"
-managed-hibernate6 = "6.0.1.Final"
+#managed-hibernate6 = "6.0.1.Final"
 managed-jasync = "1.2.3"
 managed-hikari = "4.0.3"
 managed-commons-dbcp = "2.9.0"
@@ -54,9 +54,9 @@ managed-hibernate-jcache = { module = "org.hibernate:hibernate-jcache", version.
 managed-hibernate-micrometer = { module = "org.hibernate:hibernate-micrometer", version.ref = "managed-hibernate" }
 managed-hibernate-reactive-core = { module = "org.hibernate.reactive:hibernate-reactive-core", version.ref = "managed-hibernate-reactive" }
 
-managed-hibernate6-core = { module = "org.hibernate:hibernate-core", version.ref = "managed-hibernate6" }
-managed-hibernate6-jcache = { module = "org.hibernate:hibernate-jcache", version.ref = "managed-hibernate6" }
-managed-hibernate6-micrometer = { module = "org.hibernate:hibernate-micrometer", version.ref = "managed-hibernate6" }
+#managed-hibernate6-core = { module = "org.hibernate:hibernate-core", version.ref = "managed-hibernate6" }
+#managed-hibernate6-jcache = { module = "org.hibernate:hibernate-jcache", version.ref = "managed-hibernate6" }
+#managed-hibernate6-micrometer = { module = "org.hibernate:hibernate-micrometer", version.ref = "managed-hibernate6" }
 
 # Jasync
 
