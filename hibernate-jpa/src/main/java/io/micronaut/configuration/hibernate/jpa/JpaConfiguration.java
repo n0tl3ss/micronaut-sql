@@ -15,6 +15,7 @@
  */
 package io.micronaut.configuration.hibernate.jpa;
 
+import io.micronaut.configuration.hibernate.jpa.conf.settings.SettingsSupplier;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.EachProperty;
@@ -49,6 +50,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -73,12 +75,13 @@ public class JpaConfiguration {
     private EntityScanConfiguration entityScanConfiguration;
 
     private boolean compileTimeHibernateProxies;
+    private boolean reactive;
 
     /**
      * @param applicationContext The application context
      * @param integrator         The {@link Integrator}
      */
-    protected JpaConfiguration(ApplicationContext applicationContext, @Nullable Integrator integrator) {
+    public JpaConfiguration(ApplicationContext applicationContext, @Nullable Integrator integrator) {
         this(PRIMARY, integrator, applicationContext, new EntityScanConfiguration(applicationContext.getEnvironment()));
     }
 
@@ -123,8 +126,10 @@ public class JpaConfiguration {
      *
      * @param additionalSettings Additional settings for the service registry
      * @return The standard service registry
+     * @deprecated Deprecated and scheduled to be removed.
      */
     @SuppressWarnings("WeakerAccess")
+    @Deprecated
     public StandardServiceRegistry buildStandardServiceRegistry(@Nullable Map<String, Object> additionalSettings) {
         Map<String, Object> jpaProperties = getProperties();
 
@@ -189,24 +194,13 @@ public class JpaConfiguration {
      * @return The JPA properties
      */
     public Map<String, Object> getProperties() {
-        ValidatorFactory validatorFactory;
-        if (applicationContext.containsBean(ValidatorFactory.class)) {
-            validatorFactory = applicationContext.getBean(ValidatorFactory.class);
-        } else {
-            validatorFactory = null;
+        Map<String, Object> settings = new LinkedHashMap<>(jpaProperties);
+        settings.put(AvailableSettings.SESSION_FACTORY_NAME, getName());
+        settings.put(AvailableSettings.SESSION_FACTORY_NAME_IS_JNDI, false);
+        for (SettingsSupplier settingsSupplier : applicationContext.getBeansOfType(SettingsSupplier.class)) {
+            settings.putAll(settingsSupplier.supply(this));
         }
-
-        if (validatorFactory != null) {
-            jpaProperties.put(org.hibernate.cfg.AvailableSettings.JPA_VALIDATION_FACTORY, validatorFactory);
-        }
-        // Disable default bytecode provider bytebuddy if it isn't present on the classpath
-        try {
-            Class.forName("net.bytebuddy.ByteBuddy");
-        } catch (ClassNotFoundException e) {
-            jpaProperties.put(AvailableSettings.BYTECODE_PROVIDER, org.hibernate.cfg.Environment.BYTECODE_PROVIDER_NAME_NONE);
-            System.setProperty(AvailableSettings.BYTECODE_PROVIDER, org.hibernate.cfg.Environment.BYTECODE_PROVIDER_NAME_NONE);
-        }
-        return jpaProperties;
+        return settings;
     }
 
     /**
@@ -215,11 +209,12 @@ public class JpaConfiguration {
      * @param integrator  The integrator to use. Can be null
      * @param classLoader The class loade rto use
      * @return The BootstrapServiceRegistryBuilder
+     * @deprecated Deprecated and scheduled to be removed.
      */
     @SuppressWarnings("WeakerAccess")
-    protected BootstrapServiceRegistryBuilder createBootstrapServiceRegistryBuilder(
-            @Nullable Integrator integrator,
-            ClassLoader classLoader) {
+    @Deprecated
+    protected BootstrapServiceRegistryBuilder createBootstrapServiceRegistryBuilder(@Nullable Integrator integrator,
+                                                                                    ClassLoader classLoader) {
         BootstrapServiceRegistryBuilder bootstrapServiceRegistryBuilder = new BootstrapServiceRegistryBuilder();
         bootstrapServiceRegistryBuilder.applyClassLoader(classLoader);
         if (integrator != null) {
@@ -233,7 +228,9 @@ public class JpaConfiguration {
      *
      * @param bootstrapServiceRegistry The {@link BootstrapServiceRegistry} instance
      * @return The {@link StandardServiceRegistryBuilder} instance
+     * @deprecated Deprecated and scheduled to be removed.
      */
+    @Deprecated
     @SuppressWarnings("WeakerAccess")
     protected StandardServiceRegistryBuilder createStandServiceRegistryBuilder(BootstrapServiceRegistry bootstrapServiceRegistry) {
         return new StandardServiceRegistryBuilder(
@@ -275,6 +272,20 @@ public class JpaConfiguration {
      */
     public void setCompileTimeHibernateProxies(boolean compileTimeHibernateProxies) {
         this.compileTimeHibernateProxies = compileTimeHibernateProxies;
+    }
+
+    /**
+     * @return is reactive
+     */
+    public boolean isReactive() {
+        return reactive;
+    }
+
+    /**
+     * @param reactive the reactive value
+     */
+    public void setReactive(boolean reactive) {
+        this.reactive = reactive;
     }
 
     /**

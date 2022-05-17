@@ -1,0 +1,12 @@
+plugins {
+    id 'io.micronaut.build.internal.test-library'
+}
+
+dependencies {
+    implementation libs.javax.inject
+    implementation libs.jakarta.inject.api
+    implementation libs.micronaut.http.client
+    annotationProcessor libs.micronaut.graal
+    implementation projects.hibernateJpa
+    runtimeOnly projects.jdbcHikari
+}

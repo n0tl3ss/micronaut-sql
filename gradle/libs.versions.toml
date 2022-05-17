@@ -2,6 +2,8 @@
 managed-vertx = "4.3.0"
 managed-jooq = "3.14.12"
 managed-hibernate = "5.6.8.Final"
+managed-hibernate-reactive = "1.1.5.Beta2"
+managed-hibernate6 = "6.0.1.Final"
 managed-jasync = "1.2.3"
 managed-hikari = "4.0.3"
 managed-commons-dbcp = "2.9.0"
@@ -27,24 +29,49 @@ testcontainers = "1.17.1"
 # Micronaut
 micronaut = "3.4.3"
 micronaut-test = "3.2.0"
+micronaut-data = "3.4.0"
 micronaut-hibernate-validator = "2.0.0"
 
+vertx-mysql-client = "4.3.0"
 
 [libraries]
+
+# Vertx
+
 managed-vertx-codegen = { module = "io.vertx:vertx-codegen", version.ref = "managed-vertx" }
 managed-vertx-mysql-client = { module = "io.vertx:vertx-mysql-client", version.ref = "managed-vertx" }
 managed-vertx-pg-client = { module = "io.vertx:vertx-pg-client", version.ref = "managed-vertx" }
+managed-vertx-mssql-client = { module = "io.vertx:vertx-mssql-client", version.ref = "managed-vertx" }
+managed-vertx-oracle-client = { module = "io.vertx:vertx-oracle-client", version.ref = "managed-vertx" }
 managed-vertx-rx-java2 = { module = "io.vertx:vertx-rx-java2", version.ref = "managed-vertx" }
+
 managed-jooq = { module = "org.jooq:jooq", version.ref = "managed-jooq" }
+
+# Hibernate
+
 managed-hibernate-core = { module = "org.hibernate:hibernate-core", version.ref = "managed-hibernate" }
 managed-hibernate-jcache = { module = "org.hibernate:hibernate-jcache", version.ref = "managed-hibernate" }
 managed-hibernate-micrometer = { module = "org.hibernate:hibernate-micrometer", version.ref = "managed-hibernate" }
+managed-hibernate-reactive-core = { module = "org.hibernate.reactive:hibernate-reactive-core", version.ref = "managed-hibernate-reactive" }
+
+managed-hibernate6-core = { module = "org.hibernate:hibernate-core", version.ref = "managed-hibernate6" }
+managed-hibernate6-jcache = { module = "org.hibernate:hibernate-jcache", version.ref = "managed-hibernate6" }
+managed-hibernate6-micrometer = { module = "org.hibernate:hibernate-micrometer", version.ref = "managed-hibernate6" }
+
+# Jasync
+
 managed-jasync-mysql = { module = "com.github.jasync-sql:jasync-mysql", version.ref = "managed-jasync" }
 managed-jasync-postgresql = { module = "com.github.jasync-sql:jasync-postgresql", version.ref = "managed-jasync" }
+
+# JDBC pools
+
 managed-hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "managed-hikari" }
 managed-commons-dbcp2 = { module = "org.apache.commons:commons-dbcp2", version.ref = "managed-commons-dbcp" }
 managed-tomcat-jdbc = { module = "org.apache.tomcat:tomcat-jdbc", version.ref = "managed-tomcat-jdbc" }
 managed-ucp = { module = "com.oracle.database.jdbc:ucp", version.ref = "managed-ojdbc" }
+
+# JDBC drivers
+
 managed-postgresql = { module = "org.postgresql:postgresql", version.ref = "managed-postgres-driver" }
 managed-mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version.ref = "managed-mariadb-driver" }
 managed-mssql-jdbc = { module = "com.microsoft.sqlserver:mssql-jdbc", version.ref = "managed-mssql-driver" }
@@ -60,8 +87,15 @@ micronaut-aop = { module = "io.micronaut:micronaut-aop" }
 micronaut-cache-caffeine = { module = "io.micronaut.cache:micronaut-cache-caffeine" }
 micronaut-cache-core = { module = "io.micronaut.cache:micronaut-cache-core" }
 micronaut-context = { module = "io.micronaut:micronaut-context" }
-micronaut-data-tx = { module = "io.micronaut.data:micronaut-data-tx" }
-micronaut-data-tx-hibernate = { module = "io.micronaut.data:micronaut-data-tx-hibernate" }
+
+# Micronaut Data
+
+micronaut-data-tx = { module = "io.micronaut.data:micronaut-data-tx", version.ref = "micronaut-data" }
+micronaut-data-tx-hibernate = { module = "io.micronaut.data:micronaut-data-tx-hibernate", version.ref = "micronaut-data" }
+micronaut-data-tx-hibernate-reactive = { module = "io.micronaut.data:micronaut-data-tx-hibernate-reactive", version.ref = "micronaut-data" }
+micronaut-data-tx-hibernate6 = { module = "io.micronaut.data:micronaut-data-tx-hibernate6", version.ref = "micronaut-data" }
+micronaut-data-processor = { module = "io.micronaut.data:micronaut-data-processor", version.ref = "micronaut-data"  }
+
 micronaut-function-web = { module = "io.micronaut:micronaut-function-web" }
 micronaut-graal = { module = "io.micronaut:micronaut-graal" }
 micronaut-hibernate-validator = { module = "io.micronaut.configuration:micronaut-hibernate-validator", version.ref = "micronaut-hibernate-validator" }
@@ -78,7 +112,6 @@ micronaut-spring = { module = "io.micronaut.spring:micronaut-spring" }
 micronaut-spring-annotation = { module = "io.micronaut.spring:micronaut-spring-annotation" }
 micronaut-test-core = { module = "io.micronaut.test:micronaut-test-core", version.ref = "micronaut-test" }
 micronaut-validation = { module = "io.micronaut:micronaut-validation" }
-micronaut-data-processor = { module = "io.micronaut.data:micronaut-data-processor" }
 micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock" }
 
 dms = { module = "com.oracle.database.observability:dms", version.ref = "managed-ojdbc" }
@@ -98,6 +131,12 @@ sfm-reflect = { module = "org.simpleflatmapper:sfm-reflect", version.ref = "sfm-
 spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring" }
 spring-orm = { module = "org.springframework:spring-orm", version.ref = "spring" }
 spring-tx = { module = "org.springframework:spring-tx" }
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
+logback-classic = { module = "ch.qos.logback:logback-classic" }
+spock-core = { module = "org.spockframework:spock-core" }
+
+# Testcontainers
+
 testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
@@ -106,6 +145,3 @@ testcontainers-mysql = { module = "org.testcontainers:mysql" }
 testcontainers-oracle-xe = { module = "org.testcontainers:oracle-xe" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
-caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
-logback-classic = { module = "ch.qos.logback:logback-classic" }
-spock-core = { module = "org.spockframework:spock-core" }
