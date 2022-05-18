@@ -9,3 +9,8 @@ dependencies {
     testImplementation libs.testcontainers.postgresql
     implementation projects.vertxPgClient
 }
+
+project.afterEvaluate {
+    nativeCompile.enabled = false
+    testNativeImage.enabled = false
+}
