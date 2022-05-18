@@ -7,7 +7,7 @@ dependencies {
     testImplementation projects.tests.hibernate5.hibernate5ReactiveCommonTests
 
     testImplementation libs.testcontainers.mysql
-    implementation libs.managed.vertx.mysql.client
+    implementation projects.vertxMysqlClient
 
     // Testcontainers wait function needs the driver
     testRuntimeOnly libs.managed.mysql.connector.java

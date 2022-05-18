@@ -12,3 +12,9 @@ dependencies {
     // Testcontainers wait function needs the driver
     testRuntimeOnly libs.managed.mssql.jdbc
 }
+
+graalvmNative {
+    binaries.all {
+        buildArgs.addAll("-H:+AddAllCharsets")
+    }
+}

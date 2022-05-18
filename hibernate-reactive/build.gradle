@@ -14,7 +14,7 @@ dependencies {
     annotationProcessor(libs.micronaut.graal)
 
     api(projects.hibernateJpa) {
-        exclude module: 'micronaut-jdbc'
+        exclude module: 'jdbc'
         exclude group: 'micronaut-data'
     }
     api libs.managed.hibernate.reactive.core

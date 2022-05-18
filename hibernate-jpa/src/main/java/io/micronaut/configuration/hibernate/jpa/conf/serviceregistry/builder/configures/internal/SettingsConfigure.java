@@ -22,6 +22,8 @@ import io.micronaut.context.annotation.Prototype;
 import io.micronaut.core.util.CollectionUtils;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,6 +47,7 @@ final class SettingsConfigure implements StandardServiceRegistryBuilderConfigure
         Map<String, Object> settings = new LinkedHashMap<>(jpaConfiguration.getProperties());
         settings.put(AvailableSettings.SESSION_FACTORY_NAME, jpaConfiguration.getName());
         settings.put(AvailableSettings.SESSION_FACTORY_NAME_IS_JNDI, false);
+        LoggerFactory.getLogger(getClass()).info("Props: {}", settings);
         for (SettingsSupplier settingsSupplier : settingsSuppliers) {
             settings.putAll(settingsSupplier.supply(jpaConfiguration));
         }

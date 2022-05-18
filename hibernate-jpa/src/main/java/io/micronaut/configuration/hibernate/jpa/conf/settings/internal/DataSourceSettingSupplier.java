@@ -35,7 +35,7 @@ import java.util.Map;
  * @author Denis Stepanov
  * @since 4.5.0
  */
-@Requires(classes = DataSource.class)
+@Requires(classes = {DataSource.class, DataSourceResolver.class})
 @Prototype
 final class DataSourceSettingSupplier implements SettingsSupplier {
 

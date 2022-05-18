@@ -29,10 +29,14 @@ abstract class AbstractDBContainerAppSpec extends AbstractAppSpec implements Tes
     @Override
     Map<String, String> getProperties() {
         dbContainer.start()
-        return [
-                "jpa.default.properties.hibernate.connection.url"     : dbContainer.getJdbcUrl(),
-                "jpa.default.properties.hibernate.connection.username": dbContainer.getUsername(),
-                "jpa.default.properties.hibernate.connection.password": dbContainer.getPassword(),
+        return provideProperties(dbContainer)
+    }
+
+    Map<String, String> provideProperties(JdbcDatabaseContainer databaseContainer) {
+        [
+                "jpa.default.properties.hibernate.connection.url"     : databaseContainer.getJdbcUrl(),
+                "jpa.default.properties.hibernate.connection.username": databaseContainer.getUsername(),
+                "jpa.default.properties.hibernate.connection.password": databaseContainer.getPassword(),
                 "jpa.default.reactive"                                : 'true'
         ]
     }
