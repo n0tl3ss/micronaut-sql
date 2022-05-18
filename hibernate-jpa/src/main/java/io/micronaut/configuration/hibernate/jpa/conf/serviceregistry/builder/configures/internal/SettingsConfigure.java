@@ -47,7 +47,6 @@ final class SettingsConfigure implements StandardServiceRegistryBuilderConfigure
         Map<String, Object> settings = new LinkedHashMap<>(jpaConfiguration.getProperties());
         settings.put(AvailableSettings.SESSION_FACTORY_NAME, jpaConfiguration.getName());
         settings.put(AvailableSettings.SESSION_FACTORY_NAME_IS_JNDI, false);
-        LoggerFactory.getLogger(getClass()).info("Props: {}", settings);
         for (SettingsSupplier settingsSupplier : settingsSuppliers) {
             settings.putAll(settingsSupplier.supply(jpaConfiguration));
         }
