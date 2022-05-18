@@ -37,7 +37,7 @@ final class CurrentSessionContextClassSettingSupplier implements SettingsSupplie
 
     private final ApplicationContext applicationContext;
 
-    public CurrentSessionContextClassSettingSupplier(ApplicationContext applicationContext) {
+    CurrentSessionContextClassSettingSupplier(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

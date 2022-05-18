@@ -15,7 +15,6 @@
  */
 package io.micronaut.configuration.hibernate.jpa;
 
-import io.micronaut.configuration.hibernate.jpa.conf.settings.SettingsSupplier;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.EachProperty;
@@ -37,7 +36,6 @@ import org.hibernate.boot.registry.StandardServiceInitiator;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.bytecode.spi.BytecodeProvider;
-import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.slf4j.Logger;
@@ -49,7 +47,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -193,13 +190,7 @@ public class JpaConfiguration {
      * @return The JPA properties
      */
     public Map<String, Object> getProperties() {
-        Map<String, Object> settings = new LinkedHashMap<>(jpaProperties);
-        settings.put(AvailableSettings.SESSION_FACTORY_NAME, getName());
-        settings.put(AvailableSettings.SESSION_FACTORY_NAME_IS_JNDI, false);
-        for (SettingsSupplier settingsSupplier : applicationContext.getBeansOfType(SettingsSupplier.class)) {
-            settings.putAll(settingsSupplier.supply(this));
-        }
-        return settings;
+        return jpaProperties;
     }
 
     /**

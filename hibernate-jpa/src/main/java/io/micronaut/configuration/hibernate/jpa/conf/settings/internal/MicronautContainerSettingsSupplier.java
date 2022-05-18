@@ -39,7 +39,7 @@ final class MicronautContainerSettingsSupplier implements SettingsSupplier {
 
     private final ApplicationContext applicationContext;
 
-    public MicronautContainerSettingsSupplier(ApplicationContext applicationContext) {
+    MicronautContainerSettingsSupplier(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

@@ -42,7 +42,7 @@ final class DataSourceSettingSupplier implements SettingsSupplier {
     private final ApplicationContext applicationContext;
     private final DataSourceResolver dataSourceResolver;
 
-    public DataSourceSettingSupplier(ApplicationContext applicationContext, @Nullable DataSourceResolver dataSourceResolver) {
+    DataSourceSettingSupplier(ApplicationContext applicationContext, @Nullable DataSourceResolver dataSourceResolver) {
         this.applicationContext = applicationContext;
         this.dataSourceResolver = dataSourceResolver;
     }

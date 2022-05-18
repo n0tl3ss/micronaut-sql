@@ -37,7 +37,7 @@ final class JxValidatorFactorySettingSupplier implements SettingsSupplier {
 
     private final ValidatorFactory validatorFactory;
 
-    public JxValidatorFactorySettingSupplier(ValidatorFactory validatorFactory) {
+    JxValidatorFactorySettingSupplier(ValidatorFactory validatorFactory) {
         this.validatorFactory = validatorFactory;
     }
 

@@ -34,16 +34,18 @@ import java.util.Map;
 @Prototype
 @Requires(classes = {ConfigSettings.class, CacheManager.class})
 @Requires(beans = CacheManager.class)
-public class JCacheManagerSettingSupplier implements SettingsSupplier {
+final class JCacheManagerSettingSupplier implements SettingsSupplier {
 
     private final CacheManager cacheManager;
 
-    public JCacheManagerSettingSupplier(CacheManager cacheManager) {
+    JCacheManagerSettingSupplier(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
     }
 
     @Override
     public Map<String, Object> supply(JpaConfiguration jpaConfiguration) {
+        // Backwards compatibility
+        jpaConfiguration.getProperties().put(ConfigSettings.CACHE_MANAGER, cacheManager);
         return Collections.singletonMap(ConfigSettings.CACHE_MANAGER, cacheManager);
     }
 }
