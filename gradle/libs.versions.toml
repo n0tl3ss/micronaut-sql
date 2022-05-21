@@ -2,7 +2,7 @@
 managed-vertx = "4.3.0"
 managed-jooq = "3.14.12"
 managed-hibernate = "5.6.8.Final"
-managed-jasync = "1.2.3"
+managed-jasync = "2.0.7"
 managed-hikari = "4.0.3"
 managed-commons-dbcp = "2.9.0"
 managed-tomcat-jdbc = "10.0.20"
